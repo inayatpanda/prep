@@ -91,6 +91,7 @@ mark.you{background:var(--you);color:var(--you-ink);font-family:var(--ui);font-s
 .stats b{color:var(--ink)}
 .meter{display:block;height:5px;border-radius:3px;background:var(--sunk);margin-top:8px;overflow:hidden}
 .meter i{display:block;height:100%;background:var(--accent);border-radius:2px}
+.when{margin:-6px 0 12px;font-weight:600;color:var(--accent)}
 .cta{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px}
 .btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 16px;font-weight:600;font-size:15px;min-height:44px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
@@ -263,6 +264,15 @@ function boot(DATA) {
     o.c = CHECK_KEYS.length; o.cd = CHECK_KEYS.filter(function (k) { return S.c[k]; }).length;
     return o;
   }
+  function whenHTML() {
+    if (!DATA.interview) return '';
+    var d = new Date(DATA.interview + 'T00:00:00'), t = new Date();
+    t.setHours(0, 0, 0, 0);
+    var n = Math.round((d - t) / 86400000);
+    var day = d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+    var left = n > 1 ? ' · ' + n + ' days to go' : n === 1 ? ' · tomorrow' : n === 0 ? ' · today' : '';
+    return '<p class="when">Interview on ' + esc(day) + left + '</p>';
+  }
   function statsHTML() {
     var st = stats(), pct = st.p ? Math.round(100 * st.r / st.p) : 0;
     return '<b>' + st.r + ' of ' + st.p + '</b> answers marked ready' + (st.w ? ' \u00b7 <b>' + st.w + '</b> need work' : '') + '<span class="meter"><i style="width:' + pct + '%"></i></span>';
@@ -271,7 +281,7 @@ function boot(DATA) {
   /* ---------- views ---------- */
   function renderHome() {
     var how = null, h = '<p class="eyebrow">' + esc(DATA.eyebrow) + '</p><h1 class="vt big">' + esc(DATA.title) + '</h1>' +
-      '<div class="stats" id="stats">' + statsHTML() + '</div>' +
+      whenHTML() + '<div class="stats" id="stats">' + statsHTML() + '</div>' +
       '<div class="cta"><button class="btn primary" type="button" data-view="drill">Practise questions</button><button class="btn" type="button" data-view="browse">Read answers</button><button class="btn" type="button" data-view="gaps">' + DATA.gaps.length + ' things only you can fill in</button></div>';
     HOME.sections.forEach(function (s) {
       if (s.id === 'how-to-use-this-pack') { how = s; return; }
