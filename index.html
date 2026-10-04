@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0d6a63">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prep">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Interview Prep</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: one reading column for a phone, a bottom bar with four places, question rows that open into serif answer text. */
+:root{
+  --bg:#edf2f1; --surface:#ffffff; --sunk:#e2eae9; --ink:#11272a; --muted:#566b6e; --line:#cdd9d8;
+  --accent:#0d6a63; --accent-ink:#ffffff; --accent-soft:#d8edea;
+  --ok:#1b7647; --ok-soft:#dbf0e3; --warn:#a35207; --warn-soft:#fbe9d5;
+  --you:#fff0c2; --you-ink:#584200;
+  --ui:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --read:"Source Serif 4",Georgia,"Iowan Old Style","Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1517; --surface:#132225; --sunk:#0f1c1f; --ink:#e3eeed; --muted:#8fa5a6; --line:#25393c;
+    --accent:#5ccabe; --accent-ink:#04201d; --accent-soft:#173633;
+    --ok:#6fd39a; --ok-soft:#143325; --warn:#f1a65e; --warn-soft:#3b2a13;
+    --you:#463910; --you-ink:#ffe7a1; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1517; --surface:#132225; --sunk:#0f1c1f; --ink:#e3eeed; --muted:#8fa5a6; --line:#25393c;
+  --accent:#5ccabe; --accent-ink:#04201d; --accent-soft:#173633;
+  --ok:#6fd39a; --ok-soft:#143325; --warn:#f1a65e; --warn-soft:#3b2a13;
+  --you:#463910; --you-ink:#ffe7a1; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.app{max-width:720px;margin-inline:auto;padding-inline:16px;padding-block:18px 104px}
+
+/* headings */
+.eyebrow{margin:0 0 4px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.vt{margin:0 0 14px;font-size:26px;line-height:1.15;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.vt.big{font-size:32px}
+h2{font-size:19px;line-height:1.25;margin:0 0 8px;font-weight:700;text-wrap:balance}
+h3{font-size:15px;margin:18px 0 6px;font-weight:700;letter-spacing:.01em}
+.lead{color:var(--muted);margin:0 0 14px;font-size:15px}
+.lead p{margin:0}
+
+/* reading text */
+.read{font-family:var(--read);font-size:17px;line-height:1.6;min-width:0;overflow-wrap:anywhere}
+.read p{margin:0 0 .8em}
+.read ul,.read ol{margin:0 0 .9em;padding-left:1.25em}
+.read li{margin:0 0 .35em}
+.read strong{font-weight:600}
+.read>*:last-child{margin-bottom:0}
+.read .co{font-family:var(--ui);font-size:14.5px;line-height:1.5;background:var(--sunk);padding:10px 12px;border-radius:8px}
+.read .co.lvl{background:var(--accent-soft)}
+.read .gap{font-family:var(--ui);font-size:14.5px;line-height:1.5;background:var(--you);color:var(--you-ink);padding:10px 12px;border-radius:8px}
+.read .gap mark.you{background:none;padding:0}
+mark.you{background:var(--you);color:var(--you-ink);font-family:var(--ui);font-size:.9em;padding:1px 4px;border-radius:4px}
+.src{font-family:var(--ui);font-size:14px;color:var(--muted)}
+.kv{margin:0 0 .7em}
+.kv .k,.tbl .th{display:block;font-family:var(--ui);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1px}
+.tbl{margin:0 0 1em}
+.tbl .tr{border-top:1px solid var(--line);padding:12px 0}
+.tbl .tr:last-child{border-bottom:1px solid var(--line)}
+.tbl .t0{font-family:var(--ui);font-weight:650;font-size:15.5px;margin-bottom:6px}
+.tbl .td{margin-top:6px;font-size:16px}
+.rank{list-style:none;padding:0;margin:0 0 1em;counter-reset:r}
+.rank li{counter-increment:r;display:grid;grid-template-columns:28px 1fr;column-gap:6px;padding:10px 0;border-top:1px solid var(--line);margin:0}
+.rank li::before{content:counter(r);font-family:var(--ui);font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.rank .tq{grid-column:2}
+.rank .tw{grid-column:2;font-family:var(--ui);font-size:13px;color:var(--muted)}
+.checks{list-style:none;padding:0!important;font-family:var(--ui);font-size:15.5px;line-height:1.45}
+.chk{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;padding:8px 0;cursor:pointer}
+.chk input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--accent)}
+.chk input:checked+span{color:var(--muted);text-decoration:line-through}
+
+/* home */
+.stats{margin:2px 0 16px;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stats b{color:var(--ink)}
+.meter{display:block;height:5px;border-radius:3px;background:var(--sunk);margin-top:8px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent);border-radius:2px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 16px;font-weight:600;font-size:15px;min-height:44px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.sm{padding:7px 12px;min-height:36px;font-size:14px}
+.btn.wide{width:100%}
+.btn[disabled]{opacity:.45;cursor:default}
+.hsec{margin:0 0 28px}
+.how{margin:0 0 20px;border-top:1px solid var(--line);padding-top:12px}
+.how summary{font-weight:700;cursor:pointer;padding:6px 0}
+.how .read{margin-top:8px}
+.foot{color:var(--muted);font-size:13px;margin:8px 0 0}
+
+/* chips */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;margin:0 0 6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:14.5px;font-weight:600;min-height:38px;white-space:nowrap}
+.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.search{display:block;margin:0 0 14px}
+.search input{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 14px;font-size:16px;min-height:44px}
+
+/* sections and cards */
+.sec{border-top:1px solid var(--line)}
+.sec:last-child{border-bottom:1px solid var(--line)}
+.sec-h{display:grid;grid-template-columns:1fr auto;gap:2px 10px;width:100%;text-align:left;background:none;border:0;padding:15px 2px;align-items:center}
+.sec-h .st{font-weight:700;font-size:17px;line-height:1.25}
+.sec-h .sc{grid-column:1;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sec-h .chev{grid-column:2;grid-row:1 / span 2}
+.sec-b{padding:2px 0 20px}
+.intro{margin:0 0 14px}
+.chev{width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin:0 6px 4px 0;flex:0 0 auto}
+[aria-expanded="true"]>.chev{transform:rotate(-135deg);margin-bottom:-4px}
+.cards{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.card+.card{border-top:1px solid var(--line)}
+.card-h{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:none;border:0;padding:14px 12px 14px 14px;min-height:48px}
+.card-h .ct{flex:1 1 auto;min-width:0;display:block}
+.card-h .t{display:block;font-weight:600;font-size:15.5px;line-height:1.35;overflow-wrap:anywhere}
+.card-h .kind,.crumb{display:block;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:2px}
+.card-h .chev{margin-top:6px}
+.dot{flex:0 0 auto;width:12px;height:12px;border-radius:3px;border:2px solid var(--line);margin-top:4px}
+.dot.none{border-color:transparent}
+.card[data-state="ready"] .dot{background:var(--ok);border-color:var(--ok)}
+.card[data-state="work"] .dot{background:var(--warn);border-color:var(--warn)}
+.card-b{padding:2px 14px 16px 14px}
+.rate{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.rb{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 16px;font-weight:600;font-size:14.5px;min-height:40px}
+.rb.ok[aria-pressed="true"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.rb.wk[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.empty{color:var(--muted);padding:18px 2px;margin:0}
+
+/* drill */
+.dcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 16px}
+.dq{font-family:var(--read);font-size:23px;line-height:1.28;font-weight:600;margin:4px 0 16px;overflow-wrap:anywhere}
+.timer{display:flex;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}
+.ring{width:48px;height:48px;flex:0 0 auto;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:4}
+.ring .trk{stroke:var(--line)}
+.ring .prog{stroke:var(--accent);stroke-dasharray:119.4;stroke-dashoffset:0;stroke-linecap:round}
+.timer.over .prog{stroke:var(--warn)}
+.tt{font-weight:700;font-size:20px;font-variant-numeric:tabular-nums;min-width:3.2ch}
+.timer.over .tt{color:var(--warn)}
+.da{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+.dnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
+.pos{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+
+/* gaps */
+.gaps{list-style:none;padding:0;margin:0 0 22px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.gaps li{padding:6px 14px 12px}
+.gaps li+li{border-top:1px solid var(--line)}
+.gaps .gt{display:block;font-size:15px}
+.gaps .gw{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.lnk{background:none;border:0;padding:6px 0 0 34px;color:var(--accent);font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+
+/* bottom bar */
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+.bar div{max-width:720px;margin-inline:auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.nb{background:none;border:0;padding:9px 4px 8px;display:grid;justify-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted);min-height:56px}
+.nb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nb[aria-current="page"]{color:var(--accent)}
+@media (min-width:640px){.vt.big{font-size:38px}}
+@media (prefers-reduced-motion:no-preference){.chev{transition:transform .15s}}
+</style>
+
+<style>
+.lock{min-height:72vh;display:grid;place-items:center;padding:24px 16px}
+.lock form{width:100%;max-width:340px;display:grid;gap:12px}
+.lock h1{margin:0;font-size:26px;letter-spacing:-.01em}
+.lock p{margin:0;color:var(--muted);font-size:15px}
+.lock input{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px 14px;font-size:17px;min-height:46px}
+.lock .lockmsg{color:var(--warn)}
+</style>
+</head>
+<body>
+<div id="lock" class="lock" hidden><form id="lockf" autocomplete="off">
+<h1>Interview Prep</h1>
+<p id="lockhint">Enter your passphrase. It stays unlocked on this device.</p>
+<label class="sr" for="pp">Passphrase</label>
+<input id="pp" type="password" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+<button class="btn primary wide" type="submit">Unlock</button>
+<p id="lockmsg" class="lockmsg" role="alert" hidden>That passphrase did not work. Check it and try again.</p>
+</form></div>
+<div class="app"><main id="view"></main></div>
+<nav class="bar" aria-label="Sections"><div>
+  <button class="nb" type="button" data-view="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/></svg>Home</button>
+  <button class="nb" type="button" data-view="browse"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Read</button>
+  <button class="nb" type="button" data-view="drill"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2.5M9.5 2.5h5"/></svg>Practise</button>
+</div></nav>
+
+<script type="application/json" id="data"></script>
+<script>
+function boot(DATA) {
+  'use strict';
+  var KEY = 'prep.v1';
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { return {}; } }
+  var S = Object.assign({ r: {}, c: {}, g: {}, tab: 'cv', scope: 'all' }, load());
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+  var TAB = {}, ITEMS = {}, ORDER = [];
+  DATA.tabs.forEach(function (t) {
+    TAB[t.id] = t;
+    t.sections.forEach(function (s) {
+      s.items.forEach(function (it) { it.tab = t.id; it.sec = s.id; it.secTitle = s.title; ITEMS[it.id] = it; ORDER.push(it); });
+    });
+  });
+  var HOME = TAB.home, BROWSE = DATA.tabs.filter(function (t) { return t.id !== 'home'; });
+  if (!TAB[S.tab] || S.tab === 'home') S.tab = BROWSE[0].id;
+  var CHECK_KEYS = (JSON.stringify(HOME).match(/data-k=\\"([0-9a-f]+)\\"/g) || []).map(function (m) { return m.replace(/[^0-9a-f]/g, '').slice(-10); });
+
+  var view = document.getElementById('view');
+  var current = 'home', query = '', openSec = null, openCards = {};
+  var D = { ids: [], i: 0, shown: false }, timer = null;
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function practice(it) { return it.kind !== 'note'; }
+  function isQ(it) { return it.kind === 'q' || it.kind === 'talk'; }
+  function kindLabel(it) { return it.kind === 'trial' ? 'Trial' : it.kind === 'talk' ? 'Talk through' : it.kind === 'note' ? 'Notes' : ''; }
+
+  function rateHTML(it) {
+    var st = S.r[it.id] || '';
+    return '<div class="rate" data-item="' + it.id + '">' +
+      '<button type="button" class="rb ok" data-rate="ready" aria-pressed="' + (st === 'ready') + '">Ready</button>' +
+      '<button type="button" class="rb wk" data-rate="work" aria-pressed="' + (st === 'work') + '">Needs work</button></div>';
+  }
+  function bodyHTML(it) { return '<div class="read">' + it.html + '</div>' + (practice(it) ? rateHTML(it) : ''); }
+  function cardHTML(it, crumb) {
+    var open = !!openCards[it.id], k = kindLabel(it);
+    return '<article class="card" data-item="' + it.id + '" data-state="' + (S.r[it.id] || '') + '">' +
+      '<button class="card-h" type="button" aria-expanded="' + open + '">' +
+      '<span class="dot' + (practice(it) ? '' : ' none') + '" aria-hidden="true"></span><span class="ct">' +
+      (crumb ? '<span class="crumb">' + esc(TAB[it.tab].label + ' · ' + it.secTitle) + '</span>' : (k ? '<span class="kind">' + k + '</span>' : '')) +
+      '<span class="t">' + esc(it.title) + '</span></span><span class="chev" aria-hidden="true"></span></button>' +
+      '<div class="card-b"' + (open ? '' : ' hidden') + '>' + (open ? bodyHTML(it) : '') + '</div></article>';
+  }
+  function hydrate(root) {
+    root.querySelectorAll('input[data-k]').forEach(function (i) { i.checked = !!S.c[i.dataset.k]; });
+    root.querySelectorAll('input[data-g]').forEach(function (i) { i.checked = !!S.g[i.dataset.g]; });
+  }
+  function countLabel(s) {
+    var pr = s.items.filter(practice);
+    if (!pr.length) return 'Reference';
+    var rd = pr.filter(function (i) { return S.r[i.id] === 'ready'; }).length;
+    return rd + ' of ' + pr.length + ' ready';
+  }
+  function stats() {
+    var o = { p: 0, r: 0, w: 0, t: 0, tr: 0 };
+    ORDER.forEach(function (it) {
+      if (it.kind === 'trial') { o.t++; if (S.r[it.id] === 'ready') o.tr++; }
+      else if (isQ(it)) { o.p++; if (S.r[it.id] === 'ready') o.r++; if (S.r[it.id] === 'work') o.w++; }
+    });
+    o.g = DATA.gaps.length; o.gd = DATA.gaps.filter(function (x) { return S.g[x.id]; }).length;
+    o.c = CHECK_KEYS.length; o.cd = CHECK_KEYS.filter(function (k) { return S.c[k]; }).length;
+    return o;
+  }
+  function statsHTML() {
+    var st = stats(), pct = st.p ? Math.round(100 * st.r / st.p) : 0;
+    return '<b>' + st.r + ' of ' + st.p + '</b> answers marked ready' + (st.w ? ' \u00b7 <b>' + st.w + '</b> need work' : '') + '<span class="meter"><i style="width:' + pct + '%"></i></span>';
+  }
+
+  /* ---------- views ---------- */
+  function renderHome() {
+    var how = null, h = '<p class="eyebrow">' + esc(DATA.eyebrow) + '</p><h1 class="vt big">' + esc(DATA.title) + '</h1>' +
+      '<div class="stats" id="stats">' + statsHTML() + '</div>' +
+      '<div class="cta"><button class="btn primary" type="button" data-view="drill">Practise questions</button><button class="btn" type="button" data-view="browse">Read answers</button><button class="btn" type="button" data-view="gaps">' + DATA.gaps.length + ' things only you can fill in</button></div>';
+    HOME.sections.forEach(function (s) {
+      if (s.id === 'how-to-use-this-pack') { how = s; return; }
+      h += '<section class="hsec" id="h-' + s.id + '"><h2>' + esc(s.title) + '</h2>' + (s.intro ? '<div class="read">' + s.intro + '</div>' : '');
+      s.items.forEach(function (it) {
+        h += practice(it) ? '<div class="cards" style="margin-top:12px">' + cardHTML(it) + '</div>' : '<h3>' + esc(it.title) + '</h3><div class="read">' + it.html + '</div>';
+      });
+      h += '</section>';
+    });
+    if (how) h += '<details class="how"><summary>' + esc(how.title) + '</summary><div class="read">' + how.intro + '</div></details>';
+    h += '<p class="foot">Text checked against sources on ' + esc(DATA.built) + '. Ticks and ratings are saved on this device only.</p>' +
+      (window.appLock ? '<p class="foot"><button class="lnk" type="button" id="lockbtn" style="padding:0">Lock this device</button></p>' : '');
+    view.innerHTML = h;
+    hydrate(view);
+  }
+
+  function secHTML(t, s) {
+    var id = t.id + '/' + s.id, open = openSec === id;
+    return '<section class="sec" data-sec="' + id + '"><button class="sec-h" type="button" aria-expanded="' + open + '">' +
+      '<span class="st">' + esc(s.title) + '</span><span class="chev" aria-hidden="true"></span><span class="sc" data-count="' + id + '">' + countLabel(s) + '</span></button>' +
+      '<div class="sec-b"' + (open ? '' : ' hidden') + '>' + (open ? secBody(s) : '') + '</div></section>';
+  }
+  function secBody(s) {
+    return (s.intro ? '<div class="read intro">' + s.intro + '</div>' : '') +
+      (s.items.length ? '<div class="cards">' + s.items.map(function (it) { return cardHTML(it); }).join('') + '</div>' : '');
+  }
+  function paintList() {
+    var list = document.getElementById('list'), q = query.trim().toLowerCase();
+    if (!list) return;
+    if (q.length >= 2) {
+      var hits = ORDER.filter(function (it) { return it.tab !== 'home' && it.text.indexOf(q) !== -1; });
+      list.innerHTML = hits.length ? '<p class="lead">' + hits.length + ' match' + (hits.length === 1 ? '' : 'es') + '</p><div class="cards">' + hits.slice(0, 60).map(function (it) { return cardHTML(it, true); }).join('') + '</div>'
+        : '<p class="empty">Nothing matches “' + esc(query.trim()) + '”. Try a trial name or a single word.</p>';
+    } else {
+      var t = TAB[S.tab];
+      list.innerHTML = (t.lead ? '<div class="lead">' + t.lead + '</div>' : '') + t.sections.map(function (s) { return secHTML(t, s); }).join('');
+    }
+    hydrate(list);
+  }
+  function renderBrowse() {
+    view.innerHTML = '<h1 class="vt">Read</h1><div class="chips" role="tablist" aria-label="Topics">' +
+      BROWSE.map(function (t) { return '<button class="chip" type="button" role="tab" data-tab="' + t.id + '" aria-selected="' + (t.id === S.tab) + '">' + esc(t.label) + '</button>'; }).join('') +
+      '</div><label class="search"><span class="sr">Search questions and answers</span><input id="q" type="search" placeholder="Search questions and answers" autocomplete="off" value="' + esc(query) + '"></label><div id="list"></div>';
+    paintList();
+  }
+
+  var SCOPES = [['all', 'All questions'], ['work', 'Needs work'], ['trials', 'Trials']].concat(BROWSE.map(function (t) { return [t.id, t.label]; }));
+  function scopeIds(scope) {
+    var a = ORDER.filter(function (it) {
+      if (scope === 'all') return isQ(it);
+      if (scope === 'work') return S.r[it.id] === 'work';
+      if (scope === 'unrated') return isQ(it) && !S.r[it.id];
+      if (scope === 'trials') return it.kind === 'trial';
+      return it.tab === scope && isQ(it);
+    }).map(function (it) { return it.id; });
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x; }
+    return a;
+  }
+  function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+  function renderDrill(keep) {
+    stopTimer();
+    if (!keep) { D.ids = scopeIds(S.scope); D.i = 0; }
+    D.shown = false;
+    var h = '<h1 class="vt">Practise</h1><div class="chips" aria-label="What to drill">' + SCOPES.map(function (s) {
+      return '<button class="chip" type="button" data-scope="' + s[0] + '" aria-pressed="' + (s[0] === S.scope) + '">' + esc(s[1]) + '</button>';
+    }).join('') + '</div>';
+    if (!D.ids.length) {
+      h += '<p class="empty">' + (S.scope === 'work' ? 'Nothing is marked as needing work yet. Rate answers as you go and they collect here.' : S.scope === 'unrated' ? 'Every question has been rated.' : 'Nothing to drill here.') + '</p>';
+      view.innerHTML = h; return;
+    }
+    var it = ITEMS[D.ids[D.i]];
+    var prompt = it.kind === 'trial' ? it.title + ': what was asked, and what did it show?' : it.title;
+    h += '<div class="dcard" data-item-card="' + it.id + '"><p class="crumb">' + esc(TAB[it.tab].label + ' · ' + it.secTitle) + '</p>' +
+      '<h2 class="dq">' + esc(prompt) + '</h2>' +
+      '<div class="timer" id="timer"><svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="19"/><circle class="prog" id="ringp" cx="22" cy="22" r="19"/></svg>' +
+      '<span class="tt" id="tt">1:30</span><button class="btn sm" type="button" id="tbtn">Start 90 seconds</button></div>' +
+      '<button class="btn primary wide" type="button" id="show">Show answer</button>' +
+      '<div class="da" id="da" hidden></div>' +
+      '<div class="dnav"><button class="btn" type="button" id="prev"' + (D.i === 0 ? ' disabled' : '') + '>Back</button><span class="pos">' + (D.i + 1) + ' of ' + D.ids.length + '</span><button class="btn" type="button" id="next">Next</button></div></div>';
+    view.innerHTML = h;
+  }
+  function toggleTimer() {
+    var box = document.getElementById('timer'), tt = document.getElementById('tt'), ring = document.getElementById('ringp'), btn = document.getElementById('tbtn');
+    if (!box) return;
+    if (timer) { stopTimer(); tt.textContent = '1:30'; ring.style.strokeDashoffset = 0; box.classList.remove('over'); btn.textContent = 'Start 90 seconds'; return; }
+    var end = Date.now() + 90000;
+    box.classList.remove('over'); btn.textContent = 'Reset';
+    timer = setInterval(function () {
+      var left = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+      tt.textContent = left ? Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2) : 'Time';
+      ring.style.strokeDashoffset = (119.4 * (1 - left / 90)).toFixed(1);
+      if (!left) { stopTimer(); box.classList.add('over'); }
+    }, 200);
+  }
+
+  function renderGaps() {
+    var st = stats(), h = '<p><button class="btn sm" type="button" data-view="home">Back to Home</button></p><h1 class="vt">Things only you can fill in</h1><p class="lead">' + st.g + ' places where only you know the fact or the story. Tick each one when you have written your own version. ' + st.gd + ' done.</p>';
+    DATA.tabs.forEach(function (t) {
+      var gs = DATA.gaps.filter(function (g) { return g.tab === t.id; });
+      if (!gs.length) return;
+      h += '<h2>' + esc(t.id === 'home' ? 'Start' : t.title) + '</h2><ul class="gaps">' + gs.map(function (g) {
+        return '<li><label class="chk"><input type="checkbox" data-g="' + esc(g.id) + '"><span><span class="gt">' + esc(g.text.replace(/^\[YOU:\s*/, '').replace(/\]$/, '')) + '</span><span class="gw">' + esc(g.where) + '</span></span></label>' +
+          '<button class="lnk" type="button" data-open="' + esc(g.tab + '|' + g.sec + '|' + (g.item || '')) + '">Open the answer</button></li>';
+      }).join('') + '</ul>';
+    });
+    view.innerHTML = h;
+    hydrate(view);
+  }
+
+  var RENDER = { home: renderHome, browse: renderBrowse, drill: renderDrill, gaps: renderGaps };
+  function go(v, noScroll) {
+    if (!RENDER[v]) v = 'home';
+    stopTimer();
+    current = v;
+    try { if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v); } catch (e) {}
+    document.querySelectorAll('.nb').forEach(function (b) { if (b.dataset.view === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    RENDER[v]();
+    if (!noScroll) window.scrollTo(0, 0);
+  }
+  function openItem(tab, sec, item) {
+    if (tab === 'home') { go('home'); var el = document.getElementById('h-' + sec); if (el) el.scrollIntoView(); return; }
+    S.tab = tab; save(); query = ''; openSec = tab + '/' + sec; if (item) openCards[item] = true;
+    go('browse', true);
+    var target = item ? view.querySelector('.card[data-item="' + item + '"]') : view.querySelector('.sec[data-sec="' + openSec + '"]');
+    if (target) target.scrollIntoView(); else window.scrollTo(0, 0);
+  }
+  function paintCounts() {
+    document.querySelectorAll('[data-count]').forEach(function (el) {
+      var p = el.dataset.count.split('/'), t = TAB[p[0]];
+      var s = t && t.sections.filter(function (x) { return x.id === p[1]; })[0];
+      if (s) el.textContent = countLabel(s);
+    });
+    var st = document.getElementById('stats'); if (st) st.innerHTML = statsHTML();
+  }
+  function rate(id, val) {
+    if (S.r[id] === val) delete S.r[id]; else S.r[id] = val;
+    save();
+    document.querySelectorAll('[data-item="' + id + '"]').forEach(function (el) {
+      if (el.classList.contains('card')) el.dataset.state = S.r[id] || '';
+      if (el.classList.contains('rate')) el.querySelectorAll('[data-rate]').forEach(function (b) { b.setAttribute('aria-pressed', String(S.r[id] === b.dataset.rate)); });
+    });
+    paintCounts();
+  }
+
+  /* ---------- events ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-view],[data-goto],[data-tab],.sec-h,.card-h,[data-rate],[data-scope],[data-open],#tbtn,#show,#next,#prev,#lockbtn');
+    if (!t) return;
+    if (t.dataset.view) { go(t.dataset.view); return; }
+    if (t.dataset.goto) { e.preventDefault(); if (TAB[t.dataset.goto] && t.dataset.goto !== 'home') { S.tab = t.dataset.goto; save(); } openSec = null; query = ''; go('browse'); return; }
+    if (t.dataset.tab) { S.tab = t.dataset.tab; save(); openSec = null; query = ''; renderBrowse(); return; }
+    if (t.dataset.scope) { S.scope = t.dataset.scope; save(); renderDrill(); return; }
+    if (t.dataset.open) { var p = t.dataset.open.split('|'); openItem(p[0], p[1], p[2]); return; }
+    if (t.dataset.rate) { rate(t.parentNode.dataset.item, t.dataset.rate); return; }
+    if (t.classList.contains('sec-h')) {
+      var id = t.parentNode.dataset.sec; openSec = openSec === id ? null : id; paintList();
+      var s = openSec && view.querySelector('.sec[data-sec="' + openSec + '"]'); if (s) s.scrollIntoView();
+      return;
+    }
+    if (t.classList.contains('card-h')) {
+      var card = t.parentNode, cid = card.dataset.item, body = card.querySelector('.card-b'), open = t.getAttribute('aria-expanded') !== 'true';
+      t.setAttribute('aria-expanded', String(open));
+      if (open) { openCards[cid] = true; if (!body.innerHTML) { body.innerHTML = bodyHTML(ITEMS[cid]); hydrate(body); } } else delete openCards[cid];
+      body.hidden = !open;
+      return;
+    }
+    if (t.id === 'lockbtn') { window.appLock(); return; }
+    if (t.id === 'tbtn') { toggleTimer(); return; }
+    if (t.id === 'show') {
+      var it = ITEMS[D.ids[D.i]], da = document.getElementById('da');
+      da.innerHTML = bodyHTML(it); da.hidden = false; t.hidden = true; D.shown = true; return;
+    }
+    if (t.id === 'next') { D.i = (D.i + 1) % D.ids.length; renderDrill(true); window.scrollTo(0, 0); return; }
+    if (t.id === 'prev') { if (D.i > 0) { D.i--; renderDrill(true); window.scrollTo(0, 0); } return; }
+  });
+  document.addEventListener('change', function (e) {
+    var i = e.target;
+    if (i.dataset && i.dataset.k) { if (i.checked) S.c[i.dataset.k] = 1; else delete S.c[i.dataset.k]; save(); paintCounts(); }
+    if (i.dataset && i.dataset.g) { if (i.checked) S.g[i.dataset.g] = 1; else delete S.g[i.dataset.g]; save(); }
+  });
+  document.addEventListener('input', function (e) { if (e.target.id === 'q') { query = e.target.value; paintList(); } });
+  window.addEventListener('hashchange', function () { var v = location.hash.slice(1); if (RENDER[v] && v !== current) go(v); });
+
+  go(RENDER[location.hash.slice(1)] ? location.hash.slice(1) : 'home');
+}
+(function () {
+  var KEY = 'prep.key', enc = null;
+  var lock = document.getElementById('lock'), app = document.querySelector('.app'), bar = document.querySelector('.bar');
+  function show(locked) { lock.hidden = !locked; app.hidden = locked; bar.hidden = locked; }
+  function b64d(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+  function b64e(u) { var s = ''; for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s); }
+  function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function derive(pass) {
+    var p = pass.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return crypto.subtle.importKey('raw', new TextEncoder().encode(p), 'PBKDF2', false, ['deriveBits']).then(function (base) {
+      return crypto.subtle.deriveBits({ name: 'PBKDF2', salt: b64d(enc.salt), iterations: enc.iter, hash: 'SHA-256' }, base, 256);
+    }).then(function (bits) { return new Uint8Array(bits); });
+  }
+  function open(raw) {
+    return crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']).then(function (k) {
+      return crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(enc.iv) }, k, b64d(enc.ct));
+    }).then(function (pt) { return JSON.parse(new TextDecoder().decode(pt)); });
+  }
+  function start(data) { document.title = data.title || 'Interview Prep'; show(false); boot(data); }
+  window.appLock = function () { try { localStorage.removeItem(KEY); } catch (e) {} location.reload(); };
+  show(true);
+  fetch('data.enc.json').then(function (r) { return r.json(); }).then(function (j) {
+    enc = j;
+    var k = saved();
+    return k ? open(b64d(k)).then(start, function () { try { localStorage.removeItem(KEY); } catch (e) {} }) : null;
+  }).catch(function () {
+    document.getElementById('lockhint').textContent = 'Could not load the content. Connect to the internet once, then reopen.';
+  });
+  document.getElementById('lockf').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var msg = document.getElementById('lockmsg');
+    msg.hidden = true;
+    if (!enc) return;
+    derive(document.getElementById('pp').value).then(function (raw) {
+      return open(raw).then(function (data) { try { localStorage.setItem(KEY, b64e(raw)); } catch (e) {} start(data); });
+    }).catch(function () { msg.hidden = false; });
+  });
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+})();
+</script>
+
+</body>
+</html>
