@@ -1,5 +1,5 @@
 // Offline support: keep the app shell and the encrypted content on the device.
-const CACHE = 'prep-5c124f6b0937';
+const CACHE = 'prep-6cf0c3a8db12';
 const SHELL = ['./', 'index.html', 'data.enc.json', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
